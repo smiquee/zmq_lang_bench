@@ -1,4 +1,4 @@
-all: identity_c identity_go
+all: identity_c identity_go sender_go receiver_go
 
 godeps:
 	GOPATH=${PWD} go get github.com/pebbe/zmq4
@@ -6,6 +6,12 @@ godeps:
 
 identity_go:
 	GOPATH=${PWD} go install identity_go
+
+sender_go:
+	GOPATH=${PWD} go install sender_go
+
+receiver_go:
+	GOPATH=${PWD} go install receiver_go
 
 identity_c:
 	mkdir -p bin

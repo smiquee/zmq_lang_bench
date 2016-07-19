@@ -15,7 +15,8 @@ def main():
 
     while True:
         try:
-            zock_out.send(zock_in.recv())
+            msg = zock_in.recv()
+            zock_out.send(msg)
         except KeyboardInterrupt:
             break
 

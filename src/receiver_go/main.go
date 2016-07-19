@@ -25,6 +25,10 @@ func main() {
 	msg := []byte{}
 	for {
 		msg, _ = zock_in.RecvBytes(0)
-		zock_out.SendBytes(msg, 0)
+		if string(msg) == "This is the end message that has to be send to stop the benmark" {
+			break
+		}
 	}
+	msg = []byte("OK")
+	zock_out.SendBytes(msg, 0)
 }

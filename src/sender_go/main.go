@@ -4,6 +4,7 @@ import (
 	"fmt"
 	zmq "github.com/pebbe/zmq4"
 	"os"
+	"time"
 )
 
 func main() {
@@ -22,9 +23,18 @@ func main() {
 	zock_in.Connect(os.Args[1])
 	zock_out.Bind(os.Args[2])
 
-	msg := []byte{}
-	for {
-		msg, _ = zock_in.RecvBytes(0)
+	msg := []byte("This is a message that has to be transmitted across all the components")
+	start := time.Now()
+	for i := 0; i < 1000000; i++ {
 		zock_out.SendBytes(msg, 0)
 	}
+	msg = []byte("This is the end message that has to be send to stop the benmark")
+	zock_out.SendBytes(msg, 0)
+
+	msg, _ = zock_in.RecvBytes(0)
+
+	stop := time.Now()
+	var duration time.Duration = stop.Sub(start)
+
+	fmt.Printf("%.6fs\n", duration.Seconds())
 }
