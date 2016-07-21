@@ -16,3 +16,6 @@ receiver_go:
 identity_c:
 	mkdir -p bin
 	cc identity_c.c -o bin/identity_c -lzmq
+
+new_zmq:
+	GOPATH=${PWD} go install new_zmq
